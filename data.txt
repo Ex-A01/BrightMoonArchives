@@ -2,7 +2,7 @@ Time Scale: Time scaling factor for everything in the game.
 
 Force Fixed Time Step: Tune this to a lower number to help debug events that take place too quickly for you to see what is happening.
 
-Fixed Time Step: If set to true, then all tasks will be run with a fixed fDeltaT value.  (normally fDeltaT is calculated based on the actual time difference since the last update)The fixed time step value used if "Force Fixed Time Step" is tweaked to true.
+Fixed Time Step: If set to true, then all tasks will be run with a fixed fDeltaT value.  (normally fDeltaT is calculated based on the actual time difference since the last update). The fixed time step value used if "Force Fixed Time Step" is tweaked to true.
 
 Use Perfect Frustum Tests: When this tweak is set to true, we always do bounding box tests with no false positives. The tests become more expensive, but the results are more accurate, so there may or may not be a payoff.  It is false by default, try setting it to true to see if you have a false positive problem.
 
@@ -31,3 +31,176 @@ Disable Target Switching: Enable this to avoid accidental presses of the Target 
 Revolution Pointer Size: Size of the rendered revolution pointer.
 
 Text Rectangle Margin: How much space there is between the text and the edge of the black rectangle that is drawn behind it.
+
+Test Screen Prints: Screen Print Demo showing various sizes of text, at the top and bottom of the screen.
+
+Show Normalize Device Coordinates: Prints the normalized device coordinates above the world originScreen.
+
+Test 3DScreen Prints: Print Demo showing a bunch of screen prints around the origin of 3D space, with different justifications and 2D offsets.
+
+Grid Of Prints: 3D screen-print demo showing coordinate labels over a grid of points.
+
+Force Wireframe Rendering: Overrides the rendering of wireframes as defined by ShapeRenderStyle.
+
+Wire: Overrides the rendering of wireframes as defined by ShapeRenderStyle.
+
+Show Insignificant Nodes: If set to false, the profiler will filter out any nodes that are less than one percent of the parent.  If true, then you see every node regardless of how insignificant the time is.
+
+Display Profiler: Tweak this and then exit the tweaker to view the in-game profiler.
+
+Manual Profiler Start And Stop: Manual mode -- profile reports timings between successive presses of a button on the controller.
+
+Write Profiler Info: Dumps out the profiler data to profile.txt
+
+Display Particle Profiler: Turn this to true then exit the tweaker to display a profiler that shows how many particles are active from each effect.
+
+Default Font Size: The size of screen-print font used if RL::Font::Size_Default is passed in to the screen print function.
+
+Print System Date and Time: Prints the current system date and time to the debug window using the DC_MISC print channel.
+
+Print System Time: Prints the current system *date and* time to the debug window using the DC_MISC print channel.
+
+Print Errors To Screen: Toggles whether or not EmissionManager errors are shows on the screen.
+
+Print Names Of Effects: Enable this to turn on debug-prints over each effect that show the name of the effect.
+
+Print Addresses Of Emission Controllers: Enable this to turn on debug-prints over each effect that show the hex addresses of the EmissionController.
+
+Kill All Effects: Tweak this to immediately kill all effects that are currently playing, including all the particles that have already been emitted.
+
+twk Num Particles Updated: Displays the number of particles that have been updated in the last EmissionManager::Update. (toggle and exit tweaker to graph)
+
+twk Num Particles Rendered: Displays the number of particles that have been rendered in the last EmissionManager::Render. (toggle and exit tweaker to graph)
+
+twk Num Particle Systems Updated: Displays the number of particle systems that were updated in the last EmissionManager::Update. (toggle and exit tweaker to graph)
+
+twk Num Particle Systems Rendered: Displays the number of particle systems that were rendered in the last EmissionManager::Render. (toggle and exit tweaker to graph)
+
+Render Bone Coord Sys: Render the coordinate system of the bone that the effect is attached to. Artists may find this useful when writing effects script commands such as "DirectAlongLocalXAxis", which require some knowledge of the coordinate system of the bone that they are attached to.
+
+Render Emitter Coord Sys: Render the coordinate system of the particle emitter, where the positive z axis is the "forward" direction (the direction that particles are generally shot in if they have velocity).
+
+Request Quick Effect: Re-triggers the last "Quick Tweak" effect that you triggered through the effects tool.
+
+Always In Front: If tweaked to true, depth testing is disabled for all particles.
+
+Swap To Language: Tweakers to switch the language on the fly. Note that this does not swap the font.
+
+Use Contact Relaxation: Contact Relaxation is a mechanism for correcting the error in constraints, e.g., pushing apart bodies that are interpenetrating, or pulling bodies back together if connected by a joint that has drifted apart.
+
+Draw Contact Normals: Draw the contacts normals of all physics contacts as red lines
+
+Draw Contacts: Draw all physics contacts as red spheres.
+
+Draw KD Tree: When Physics/Draw Geoms is enabled, turning this on will draw the KD tree of the trimesh.
+
+Only Draw Box Around Debug Cam Target: Turn this to True to just draw the box around the debug cam target. False will draw all of the leaf node boxes in the KD Tree.
+
+Check Support Radius: TWEAK_FLOAT( g_fCheckSupportRadius, 0.2f, "Physics/Character", 0.0f, 10.0f, 0.01f) overriding radius for Casper, do not integrate.
+
+Num Sync Requests To Process: Number of sync requests the client processes with the server. The larger this number, the more accurate our synced time is.
+
+Show Path Events: If enabled, a printout will appear on the screen when the path agent hits a path event.
+
+Render All Paths: Turn on debug-draw rendering of all GenericPath's in the world. (can be slow)
+
+small Distance Step Iteration Counter: Displays the number of iterations in the SmallDistanceStep algorithm.
+
+Path Rendering Enabled: Enable/Disable rendering of all paths.
+
+Story Board Scroll Width: Storyboard Tweakers. #(maybe a float value... Not usefull since we don't have a 2012 build of the game)#
+
+Ignore Music Request: Misc Tweakers.
+
+Start Screen Press A Delay: TWEAK_BOOL( sAlwaysPerformFirstSave, false, "NCL_Tweakers/FE/Flow" ) not scaled 
+
+Anark Zoom Slider 0 Y: For PC testing.
+
+Scrub Time: These are referenced externally, so don't change to release macros.
+
+Override Team Cash This Floor: #(Didn't found a description, but it should replace the cash amount)#
+
+Bat Hearing Distance: How fast the bat will drop, the duration is set by the animation length static RELEASE_FLOAT( s_fDropSpeed, 5.0f, "NCL_Tweakers/Pests/Bats", 0.3f, 20.0f, 0.1f ) How far away from the nest the Luigi vacuum will trigger a response from the bats.
+
+Above Ground Attack Distance: An above ground beetle will fly towards you when you're within this distance.
+
+Cannon Damage Period: These match Luigi's (but they could not)
+
+Fix Attack Dist: The distance at which the crow locks their attack direction, giving Luigi a chance to dodge.
+
+Allow Chase State Change: #idk#
+
+Do Aiming: LeftCenterRightTWEAK_FLOAT( gAimLHandMaxDist, 0.28f, LAST_REGISTRY_FOLDER,  0.0f, 0.5f, 0.01f )
+
+Aim IK Top Left X: TWEAK_FLOAT( gAimLHandMinDist, 0.0f, LAST_REGISTRY_FOLDER,  0.0f, 0.5f, 0.01f )
+
+Aim IK Top Ctr X: TWEAK_FLOAT( gAimLHandBuffer, 0.006f, LAST_REGISTRY_FOLDER,  0.0f, 0.1f, 0.002f )
+
+Aim IK Top Right X: #idk#
+
+AimLHand Max Scale: #idk#
+
+Fade Luigi: #not found, but it should fade#
+
+Stop Speed: #didn't found, maybe 0.0f ?#
+
+Strafe Backward Angle: TWEAK_FLOAT ( sfTurnThreshold, 6.0f, "NCL_Tweakers/Movement", 0.0f, 180.0f, 1.0f ) This is used to determine whether to use idle turn or forward walk when going from  strafe to walk. This is the max angle difference between facing and movement   beyond which the idle turn is used.
+
+Head Track Num Glances: TWEAK_INT( gHeadTrackNumGlances, 3, LAST_REGISTRY_FOLDER, 1, 5, 1 )
+
+Head Track Switch Walk Time: TWEAK_FLOAT( sHeadTrackSwitchWalkTime, 0.3f,LAST_REGISTRY_FOLDER, 0.0f, 5.0f, 0.01f )
+
+Bomb Debug: debugging only
+
+Ghost Appearance Scare Spam Delay: How long to wait before allowing Luigi to be scared again after an initial scare.
+
+Ghost Appearance Scare Delay How long to wait after a ghost appears for Luigi to be scared. This should be small #(not sure if "This should be small" is for this one)#
+
+Draw Luigi State: #didn't found#
+
+A Pull Success Allowance: #ifdef USE_TWEAKERTWEAK_FLOAT ( sfSuccessAPullHealth, 2.0f, LAST_REGISTRY_FOLDER, 0.0f, 10.0f, 0.1f )
+
+Creeper Input Level: TWEAK_FLOAT ( gMinDistanceFromCreeper, 0.3f, LAST_REGISTRY_FOLDER, 0.0f, 10.0f, 0.1f ) TWEAK_FLOAT ( sCreeperTimescaleLimit, 0.8f, LAST_REGISTRY_FOLDER, 0.0f, 1.0f, 0.05f )
+
+Luigi Drag Damage: static REGISTRY_FLOAT ( sDragDamagePercentPerSecond, 1.0f, LAST_REGISTRY_FOLDER, 0.0f, 100.0f, 0.1f ) static REGISTRY_FLOAT ( sLuigiDragDamageFrame, 8.0f, LAST_REGISTRY_FOLDER, 0.0f, 30.0f, 0.5f )
+
+Min Spit Distance: REGISTRY_FLOAT( g_fMinWaitToSpitDelay, 4.0f, "NCL_TWEAKERS/Ghost/Gobber", 0.0f, 10.0f, 0.1f) REGISTRY_FLOAT( g_fMaxWaitToSpitDelay, 6.0f, "NCL_TWEAKERS/Ghost/Gobber", 0.0f, 20.0f, 0.1f)
+
+Shooting Gallery Speed: The Speed the this pest moves during the shooting gallery attack.
+
+Height Scale: #IDK#
+
+Disable Long Captures: TWEAK_FLOAT( sMaxCaptureVelocity, 48.0f, LAST_REGISTRY_FOLDER, 0.01f, 50.0f, 0.1f )
+
+Capture Orient Percent: TWEAK_BOOL(sbDrawTargetPos, true, "Gameplay/Movement/Orbit") TWEAK_FLOAT(sMinDeltaAngle, 10.0f, "Gameplay/Movement/Orbit", 0.0f, 100.0f, 1.0f)REGISTRY_FLOAT( sfPercentLongNozzleAnims, 20.f, "NCL_TWEAKERS/Ghost/Capture", 0.f, 100.f, 1.f )
+
+Show Ghost Health: debugging only, Use ShouldShowGhostHealth() to check this value.
+
+Debug Panic Path: #didn't found#
+
+Swim State Max Height Offset: TWEAK_FLOAT ( sSwimStateMinHeightOffset, 0.0f, LAST_REGISTRY_FOLDER, -2.0f, 10.0f, 0.1f )
+
+Swim Time Multiplayer Reduction: TWEAK_FLOAT ( sSwimTimeRange, 0.5f, "NCL_Tweakers/Ghost/Struggle", 0.0f, 100.0f, 0.05f ) TWEAK_FLOAT ( sSwimTimeMin, 0.3f, "NCL_Tweakers/Ghost/Struggle", 0.0f, 100.0f, 0.05f )
+
+Bully Charge Effect Frame: TWEAK_FLOAT( sAngerDetachFrames, 45.0f, LAST_REGISTRY_FOLDER, 0.0f, 200.0f, 1.0f )
+
+Bully Escape Distance: #idk#
+
+Bully Angry Speed: TWEAK_FLOAT( sAngerSpeedScale, 2.0f, LAST_REGISTRY_FOLDER, 0.1f, 10.0f, 0.1f ) TWEAK_FLOAT( sAngerSizeScale, 1.0f, LAST_REGISTRY_FOLDER, 0.1f, 10.0f, 0.1f )TWEAK_FLOAT( sBullyDragSpeed, 6.0f, LAST_REGISTRY_FOLDER, 0.1f, 10.0f, 0.1f )
+
+Dangler Shadow Height Offset: Local Defines
+
+Snapper Shadow Height Offset: Constants
+
+Ranged Attack To Distance Threshold: #didn't found#
+
+Ambient Light Scale: Tweaker light scales for various light type and brightness settings.
+
+Portal Zoom Override: Portal zoom.
+
+Disable Transparency: #didn't have any description, but i think you know what it does#
+
+Build Type: Build Type  BUILD_DEFAULT: default build BUILD_E3: uses E3 2012 flow
+
+Enable Generic Timers: Generic timers #define BASIC_MATH_COUNTS
+
