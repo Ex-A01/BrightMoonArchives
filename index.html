@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiki Website</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Bright Moon Archives</h1>
+    <nav>
+      <ul>
+        <li><a href="#tweaker" class="tab-link active" data-tab="tweaker">Tweaker Left over</a></li>
+        <!-- Add more tabs here later -->
+        <li><a href="#about" class="tab-link" data-tab="about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Tweaker Tab -->
+    <section id="tweaker" class="tab-content active">
+      <h2>Tweaker variables</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="tweaker-data">
+          <!-- Data will be populated here dynamically -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- About Tab -->
+    <section id="about" class="tab-content">
+      <h2>About</h2>
+      <p>This is a Wiki-like website for storing and displaying data.</p>
+    </section>
+
+    <!-- Add more sections for additional tabs here -->
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

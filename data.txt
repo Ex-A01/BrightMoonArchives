@@ -1,0 +1,33 @@
+Time Scale: Time scaling factor for everything in the game.
+
+Force Fixed Time Step: Tune this to a lower number to help debug events that take place too quickly for you to see what is happening.
+
+Fixed Time Step: If set to true, then all tasks will be run with a fixed fDeltaT value.  (normally fDeltaT is calculated based on the actual time difference since the last update)The fixed time step value used if "Force Fixed Time Step" is tweaked to true.
+
+Use Perfect Frustum Tests: When this tweak is set to true, we always do bounding box tests with no false positives. The tests become more expensive, but the results are more accurate, so there may or may not be a payoff.  It is false by default, try setting it to true to see if you have a false positive problem.
+
+Crash Application: Intentionally dereference a bad pointer to crash the game.  May be useful to test things like callstack dumpers.
+
+Angle Control Speed Scale: Controls how fast the camera spins around the target.
+
+Position Control Speed Scale: Controls how fast the target moves. This is the minumum value, but the target moves faster when the camera is further out.
+
+Height Speed Ratio: Controls how fast the target height moves.  This is the also effected by sfPositionControlSpeedScale.
+
+Speed Dependency On Zoom: This controls how much faster the target moves when the camera is further out.
+
+Render Target: Enable this to render a crosshair for the debug cam target.
+
+Target Size: Set the size of the debug cam crosshair.
+
+Target Jump Speed: The speed at which the camera target moves towards the selected target, when you change targets.
+
+Enable Remote Camera Control: Disables position update so that the remote-link with 3ds max works properly.
+
+Lock To Ground Height: Enable this to only allow the user to move the target down when they are above the ground height.
+
+Disable Target Switching: Enable this to avoid accidental presses of the Target Switching button.
+
+Revolution Pointer Size: Size of the rendered revolution pointer.
+
+Text Rectangle Margin: How much space there is between the text and the edge of the black rectangle that is drawn behind it.
