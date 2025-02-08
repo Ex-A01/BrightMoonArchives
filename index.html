@@ -11,8 +11,13 @@
     <h1>Bright Moon Archives</h1>
     <nav>
       <ul>
-        <li><a href="#tweaker" class="tab-link active" data-tab="tweaker">Tweaker Left over</a></li>
+        <li><a href="#tweaker" class="tab-link active" data-tab="tweaker">Tweaker program</a></li>
         <!-- Add more tabs here later -->
+         <li><a href="#anark" class="tab-link" data-tab="anark">Game Engine</a></li>
+         <li><a href="#data" class="tab-link" data-tab="data">Archive format</a></li>
+         <li><a href="#audio" class="tab-link" data-tab="audio">Audio Engine</a></li>
+         <li><a href="#cogs" class="tab-link" data-tab="cogs">Cogs</a></li>
+         <li><a href="#maps" class="tab-link" data-tab="maps">Levels</a></li>
         <li><a href="#about" class="tab-link" data-tab="about">About</a></li>
       </ul>
     </nav>
@@ -21,6 +26,7 @@
     <!-- Tweaker Tab -->
     <section id="tweaker" class="tab-content active">
       <h2>Tweaker variables</h2>
+      <p>From what we know, Tweaker is the debug menu of Luigi's Mansion 2 or a part of the game's code dedicated to balance the game before release</p>
       <table>
         <thead>
           <tr>
@@ -34,10 +40,144 @@
       </table>
     </section>
 
+    <!-- Anark Tab -->
+    <section id="anark" class="tab-content">
+      <h2>Anark Engine</h2>
+      <p>Even if there are no real proof that the engine used by NLG is named Anark we will call it like this because the game's code dedicated to the render use the name Anark many times</p>
+    </section>
+
+<!-- Audio Tab -->
+<section id="audio" class="tab-content">
+    <h2>Wwise Engine</h2>
+    <p>Lm2 uses a licensed version of Wwise that produced Wwise files using Nintendo's audio encodings.</p>
+    
+    <!-- Tree View -->
+    <div class="tree">
+      <ul>
+        <li>
+          <span class="tree-node">Wwise Files</span>
+          <ul>
+            <li>
+              <span class="tree-node">Soundbanks</span>
+              <ul>
+                <li>
+                  <span class="tree-node">Hashed.bnk</span>
+                  <ul>
+                    <li>
+                      <span class="tree-node">.wem Files</span>
+                      <ul>
+                        <li>
+                          <span class="tree-node">Nintendo Encoding</span>
+                          <ul>
+                            <li><span class="tree-node" data-info="adpcm-info">ADPCM Encoding</span></li>
+                            <li><span class="tree-node" data-info="dsp-info">DSP Encoding</span></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><span class="tree-node">Streamedfiles.pck</span></li>
+              </ul>
+            </li>
+            <li>
+              <span class="tree-node">Audio Files</span>
+              <ul>
+                <li><span class="tree-node">Music</span></li>
+                <li><span class="tree-node">SFX</span></li>
+                <li><span class="tree-node">Voices</span></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Info Display Section -->
+    <div id="info-display">
+      <h3>Section Informations</h3>
+      <p id="info-text">Click on a node to see more information.</p>
+    </div>
+  </section>
+
+<!-- Cog Tab -->
+<section id="cogs" class="tab-content">
+
+    <input type="text" id="search" placeholder="Search cog..." />
+    <h1>What are Cogs ?</h1>
+    <p>The answer is simple... Everything is Cogs ! Cogs are some kind of structures that defines the properties of an object, for example "cogTransform" should contain the transform data of an object</p>
+    <h2>Known Cogs</h2>
+    <ul id="known-cogs">
+      <!-- Known cogs will be loaded here dynamically -->
+    </ul>
+  
+    <h2>Missing Cogs or Hashed Things</h2>
+    <ul id="missing-cogs">
+      <!-- Missing cogs will be loaded here dynamically -->
+    </ul>
+  </section>
+
+<!-- Levels Tab -->
+<section id="maps" class="tab-content">
+    <h2>Level's Structure</h2>
+    <p>Some weird complicated logics here</p>
+  
+    <!-- Tree View -->
+    <div class="tree-2">
+      <ul>
+        <li>
+            <span class="tree-node-2" data-info="script-loader">Script Loader</span>
+          <ul>
+            <li>
+                <span class="tree-node-2" data-info="level-global-data">Level/global.data</span>
+              <ul>
+                <li>
+                    <span class="tree-node-2" data-info="objects-definitions">ObjectsDefinitions</span>
+                  <ul>
+                    <li>
+                        <span class="tree-node-2" data-info="wanted-level">Wanted Level</span>
+                      <ul>
+                        <li>
+                            <span class="tree-node-2" data-info="level-data">Level.data</span>
+                          <ul>
+                            <li>
+                                <span class="tree-node-2" data-info="object-database">ObjectDataBase</span>
+                              <ul>
+                                <li>
+                                    <span class="tree-node-2" data-info="scripts-to-use">Scripts to Use</span>
+                                  <ul>
+                                    <li>
+                                        <span class="tree-node-2" data-info="room-loaded">Room that is Loaded</span>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Info Display Section -->
+  <div id="info-display">
+    <h3>Node Information</h3>
+    <p id="info-text-2">Click on a node to see more information.</p>
+  </div>
+
+  </section>
+
     <!-- About Tab -->
     <section id="about" class="tab-content">
       <h2>About</h2>
-      <p>This is a Wiki-like website for storing and displaying data.</p>
+      <p>Welcome to the Union of Soviet Socialist Cogs.</p>
     </section>
 
     <!-- Add more sections for additional tabs here -->
