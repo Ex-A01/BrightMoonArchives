@@ -44,10 +44,531 @@
     <section id="anark" class="tab-content">
       <h2>Anark Engine</h2>
       <p>Even if there are no real proof that the engine used by NLG is named Anark we will call it like this because the game's code dedicated to the render use the name Anark many times</p>
+
+      <h3>Explored code</h3>
+        <label for="progress-bar">What we already understand :</label>
+        <progress id="progress-bar" value="0" max="100"></progress>
+        <span id="progress-percent">0%</span>
     </section>
 
-<!-- Audio Tab -->
-<section id="audio" class="tab-content">
+<!-- Files Tab -->
+<section id="data" class="tab-content">
+  <h2>Dict Files</h2>
+  <p>In Luigi's mansion 2 the files work in pairs, if you want to open a Data archive you need to use the corresponding DictionaryFile, also those Dict files contains useless table labeled as Debug, none of those debug tables/files exist in our build</p>
+
+  <!-- File Structure Grid -->
+  <table class="file-structure">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- DictionaryFile Fields -->
+      <tr>
+        <td>Identifier</td>
+        <td>u32</td>
+        <td>Unique identifier for the dictionary file.</td>
+      </tr>
+      <tr>
+        <td>Flags</td>
+        <td>u16</td>
+        <td>Flags associated with the dictionary file.</td>
+      </tr>
+      <tr>
+        <td>IsCompressed</td>
+        <td>bool</td>
+        <td>Indicates if the file is compressed.</td>
+      </tr>
+      <tr>
+        <td>Unknown</td>
+        <td>u8</td>
+        <td>Maybe some padding</td>
+      </tr>
+      <tr>
+        <td>BlockCount</td>
+        <td>u32</td>
+        <td>Number of blocks in the file.</td>
+      </tr>
+      <tr>
+        <td>MaxCompressedBlockSize</td>
+        <td>u32</td>
+        <td>Maximum size of a compressed block.</td>
+      </tr>
+      <tr>
+        <td>TableInfoCount</td>
+        <td>u8</td>
+        <td>Number of table info entries.</td>
+      </tr>
+      <tr>
+        <td>Uknown</td>
+        <td>u8</td>
+        <td>Maybe some padding</td>
+      </tr>
+      <tr>
+        <td>TableRefCount</td>
+        <td>u8</td>
+        <td>Number of table reference entries.</td>
+      </tr>
+      <tr>
+        <td>FileExtensionCount</td>
+        <td>u8</td>
+        <td>Number of file extensions.</td>
+      </tr>
+
+      <!-- TableReferences -->
+      <tr>
+        <td colspan="3" class="nested-header">TableReferences[TableRefCount]</td>
+      </tr>
+      <tr>
+        <td class="nested-field">Hash</td>
+        <td>u32</td>
+        <td>Hash value for the table reference.</td>
+      </tr>
+      <tr>
+        <td class="nested-field">BlockIndices</td>
+        <td>u8[8]</td>
+        <td>Indices of blocks associated with this table reference.</td>
+      </tr>
+
+      <!-- TableInfos -->
+      <tr>
+        <td colspan="3" class="nested-header">TableInfos[TableRefCount * TableInfoCount]</td>
+      </tr>
+      <tr>
+        <td class="nested-field">ChunkCount</td>
+        <td>u16</td>
+        <td>Number of chunks in the table.</td>
+      </tr>
+      <tr>
+        <td class="nested-field">TableIndex</td>
+        <td>u16</td>
+        <td>Index of the table.</td>
+      </tr>
+
+      <!-- BlockHeaders -->
+      <tr>
+        <td colspan="3" class="nested-header">BlockHeaders[BlockCount]</td>
+      </tr>
+      <tr>
+        <td class="nested-field">Offset</td>
+        <td>u32</td>
+        <td>Offset of the block in the file.</td>
+      </tr>
+      <tr>
+        <td class="nested-field">DecompressedSize</td>
+        <td>u32</td>
+        <td>Size of the block when decompressed.</td>
+      </tr>
+      <tr>
+        <td class="nested-field">CompressedSize</td>
+        <td>u32</td>
+        <td>Size of the block when compressed.</td>
+      </tr>
+      <tr>
+        <td class="nested-field">UsageType</td>
+        <td>u8</td>
+        <td>Type of usage for the block.</td>
+      </tr>
+      <tr>
+        <td class="nested-field">Unknown</td>
+        <td>u8</td>
+        <td>Maybe some padding</td>
+      </tr>
+      <tr>
+        <td class="nested-field">FileExtension</td>
+        <td>u8</td>
+        <td>File extension associated with the block.</td>
+      </tr>
+      <tr>
+        <td class="nested-field">Unknown</td>
+        <td>u8</td>
+        <td>Unknown field.</td>
+      </tr>
+
+      <!-- FileExtensions -->
+      <tr>
+        <td colspan="3" class="nested-header">FileExtensions[FileExtensionCount]</td>
+      </tr>
+      <tr>
+        <td class="nested-field">String</td>
+        <td>char[]</td>
+        <td>File extension string.</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h2>Chunks types</h2>
+
+  <table role="file-structure">
+    <thead>
+    <tr>
+    <th>Value</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>-0x1301</td>
+    <td>File identifier. Stores a hash of the file type, and a hash of the file path (8 bytes total).</td>
+    </tr>
+    <tr>
+    <td>-0x10</td>
+    <td>Room format that stores bounding box, transformation, and room name hash used to filter scene objects.</td>
+    </tr>
+    <tr>
+    <td>-0x20</td>
+    <td>Texture Bundles (hash list of grouped textures)</td>
+    </tr>
+    <tr>
+    <td>-0x21</td>
+    <td>Models Bundles (hash list of grouped models)</td>
+    </tr>
+    <tr>
+    <td>-0x30</td>
+    <td>Cutscene NLB File</td>
+    </tr>
+    <tr>
+    <td>-0x31</td>
+    <td>Config File (.txt)</td>
+    </tr>
+    <tr>
+    <td>-0x1200</td>
+    <td>Video File (MPEG)</td>
+    </tr>
+    <tr>
+    <td>-0x1302</td>
+    <td>Animation Bundles (hash list of grouped animations)</td>
+    </tr>
+    <tr>
+    <td>-0x3000</td>
+    <td>Audio Banks (.bnk)</td>
+    </tr>
+    <tr>
+    <td>-0x5000</td>
+    <td>Script File</td>
+    </tr>
+    <tr>
+    <td>-0x6500</td>
+    <td>Game Object Script Table. Determines which script functions to load map objects in.</td>
+    </tr>
+    <tr>
+    <td>-0x6510</td>
+    <td>Game Object that stores actor component and params which are later set by scripts by levels. Stored in init.dict</td>
+    </tr>
+    <tr>
+    <td>-0xB400</td>
+    <td>Shader File</td>
+    </tr>
+    <tr>
+    <td>-0xB500</td>
+    <td>Texture File</td>
+    </tr>
+    <tr>
+    <td>-0xB000</td>
+    <td>Model File</td>
+    </tr>
+    <tr>
+    <td>-0xC107</td>
+    <td>Static Map Collision</td>
+    </tr>
+    <tr>
+    <td>-0xC300</td>
+    <td>Hitboxes</td>
+    </tr>
+    <tr>
+    <td>-0xD000</td>
+    <td>Hitboxes (attached to bones)</td>
+    </tr>
+    <tr>
+    <td>-0x7000</td>
+    <td>Animation File</td>
+    </tr>
+    <tr>
+    <td>-0x7010</td>
+    <td>Font File</td>
+    </tr>
+    <tr>
+    <td>-0x7020</td>
+    <td>Message File</td>
+    </tr>
+    <tr>
+    <td>-0x7100</td>
+    <td>Skeleton</td>
+    </tr>
+    <tr>
+    <td>-0x1200</td>
+    <td>Cutscene NLB</td>
+    </tr>
+    <tr>
+    <td>-0xA251</td>
+    <td>AudioData1</td>
+    </tr>
+    <tr>
+    <td>-0xA252</td>
+    <td>AudioData2</td>
+    </tr>
+    <tr>
+    <td>-0xA253</td>
+    <td>AudioData3</td>
+    </tr>
+    <tr>
+    <td>-0xA254</td>
+    <td>AudioData4</td>
+    </tr>
+    <tr>
+    <td>-0xB400</td>
+    <td>Shader Data</td>
+    </tr>
+    </tbody>
+    </table>
+
+   
+<h2>Sub Chunks types</h2>
+
+<p>Those chunks defines how a file is</p>
+
+<table role="file-structure">
+  <thead>
+  <tr>
+  <th>Value</th>
+  <th>Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>-0xB501</td>
+  <td>Texture Header</td>
+  </tr>
+  <tr>
+  <td>-0xB502</td>
+  <td>Texture Data</td>
+  </tr>
+  <tr>
+  <td>-0xB001</td>
+  <td>Model 4x4 Matrix</td>
+  </tr>
+  <tr>
+  <td>-0xB002</td>
+  <td>Model Header (mesh count and model hash name)</td>
+  </tr>
+  <tr>
+  <td>-0xB003</td>
+  <td>Model Mesh Data</td>
+  </tr>
+  <tr>
+  <td>-0xB004</td>
+  <td>Model Vertex Data Buffer Pointers</td>
+  </tr>
+  <tr>
+  <td>-0xB005</td>
+  <td>Model Vertex/Index Buffer Data</td>
+  </tr>
+  <tr>
+  <td>-0xB006</td>
+  <td>Model Material Data</td>
+  </tr>
+  <tr>
+  <td>-0xB007</td>
+  <td>Model Material Param Table</td>
+  </tr>
+  <tr>
+  <td>-0xB008</td>
+  <td>Model Bounding Radius</td>
+  </tr>
+  <tr>
+  <td>-0xB009</td>
+  <td>Model Bounding Box</td>
+  </tr>
+  <tr>
+  <td>-0xB100</td>
+  <td>Skinning Controller</td>
+  </tr>
+  <tr>
+  <td>-0xB101</td>
+  <td>Skinning Controller Bind Model Assign (model name hash to skin/rig)</td>
+  </tr>
+  <tr>
+  <td>-0xB102</td>
+  <td>Skinning Controller 4x4 Matrices</td>
+  </tr>
+  <tr>
+  <td>-0xB103</td>
+  <td>Skinning Controller Hash List (for remapping vertex bones to rigged bones)</td>
+  </tr>
+  <tr>
+  <td>-0x7101</td>
+  <td>Skeleton Header</td>
+  </tr>
+  <tr>
+  <td>-0x7102</td>
+  <td>Skeleton Bone Data</td>
+  </tr>
+  <tr>
+  <td>-0x7103</td>
+  <td>Skeleton Bone Transform (quat + translation)</td>
+  </tr>
+  <tr>
+  <td>-0x7104</td>
+  <td>Skeleton Index List</td>
+  </tr>
+  <tr>
+  <td>-0x7105</td>
+  <td>Skeleton Name Hash List</td>
+  </tr>
+  <tr>
+  <td>-0x7106</td>
+  <td>Skeleton Parenting indices (shorts)</td>
+  </tr>
+  <tr>
+  <td>-0xC100</td>
+  <td>Collision Data (has sub chunks with all the data)</td>
+  </tr>
+  <tr>
+  <td>-0xC101</td>
+  <td>Collision Header</td>
+  </tr>
+  <tr>
+  <td>-0xC102</td>
+  <td>Collision Search</td>
+  </tr>
+  <tr>
+  <td>-0xC103</td>
+  <td>Collision Search Tri Indices</td>
+  </tr>
+  <tr>
+  <td>-0xC110</td>
+  <td>Collision Vertex Positions</td>
+  </tr>
+  <tr>
+  <td>-0xC111</td>
+  <td>Collision Tri Indices</td>
+  </tr>
+  <tr>
+  <td>-0xC112</td>
+  <td>Collision Tri Normals</td>
+  </tr>
+  <tr>
+  <td>-0xC113</td>
+  <td>Collision Tri Normal Indices</td>
+  </tr>
+  <tr>
+  <td>-0xC114</td>
+  <td>Collision Material Name Hashes</td>
+  </tr>
+  <tr>
+  <td>-0xC115</td>
+  <td>Collision Material Indices</td>
+  </tr>
+  <tr>
+  <td>-0xC116</td>
+  <td>Collision Property Indices</td>
+  </tr>
+  <tr>
+  <td>-0x5011</td>
+  <td>Script Hash Bundle.</td>
+  </tr>
+  <tr>
+  <td>-0x5012</td>
+  <td>Script Data.</td>
+  </tr>
+  <tr>
+  <td>-0x5013</td>
+  <td>Script Header</td>
+  </tr>
+  <tr>
+  <td>-0x5014</td>
+  <td>Script Function Table</td>
+  </tr>
+  <tr>
+  <td>-0x5015</td>
+  <td>Script String Hashes</td>
+  </tr>
+  <tr>
+  <td>-0x6500</td>
+  <td>Game Object Database</td>
+  </tr>
+  <tr>
+  <td>-0x6501</td>
+  <td>Game Object List</td>
+  </tr>
+  <tr>
+  <td>-0x6502</td>
+  <td>Game Object Script Hashes + Index</td>
+  </tr>
+  <tr>
+  <td>-0x6503</td>
+  <td>Game Object Script Hashes</td>
+  </tr>
+  <tr>
+  <td>-0x6511</td>
+  <td>Game Object Script Hash Type (has a hash with unknown purpose)</td>
+  </tr>
+  <tr>
+  <td>-0x6512</td>
+  <td>Game Object Component Offsets (property offsets where data is in the script)</td>
+  </tr>
+  <tr>
+  <td>-0x6513</td>
+  <td>Game Object Component Hashes (property hashes)</td>
+  </tr>
+  <tr>
+  <td>-0x6514</td>
+  <td>Game Object Components (property list with hash + offset)</td>
+  </tr>
+  <tr>
+  <td>-0x6515</td>
+  <td>Game Object Component Hashes (property hashes)</td>
+  </tr>
+  <tr>
+  <td>-0x6515</td>
+  <td>Game Object Parent Hash (has hash for what parent object to inherit)</td>
+  </tr>
+  </tbody>
+  </table>
+
+  <h2>A chunk</h2>
+  <table role="file-structure">
+    <thead>
+    <tr>
+    <th>Offset</th>
+    <th>Size</th>
+    <th>Type</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>-0x00</td>
+    <td>2</td>
+    <td>UInt16</td>
+    <td><a href="https://ex-a01.github.io/BrightMoonArchives/#data">Chunk Data Type</a></td>
+    </tr>
+    <tr>
+    <td>-0x02</td>
+    <td>2</td>
+    <td>UInt16</td>
+    <td><a href="https://github.com/KillzXGaming/NextLevelLibrary/wiki/LM2-Dictionary-File-(.dict-.data)#chunk-flags">Flags</a></td>
+    </tr>
+    <tr>
+    <td>-0x04</td>
+    <td>4</td>
+    <td>UInt32</td>
+    <td>Sub chunk count or size of chunk data depending on flag.</td>
+    </tr>
+    <tr>
+    <td>-0x08</td>
+    <td>4</td>
+    <td>UInt32</td>
+    <td>Chunk start index or chunk data offset depending on flag.</td>
+    </tr>
+    </tbody>
+    </table>
+  </section>
+  <!-- Audio Tab -->
+  <section id="audio" class="tab-content">
     <h2>Wwise Engine</h2>
     <p>Lm2 uses a licensed version of Wwise that produced Wwise files using Nintendo's audio encodings.</p>
     
@@ -100,8 +621,8 @@
     </div>
   </section>
 
-<!-- Cog Tab -->
-<section id="cogs" class="tab-content">
+  <!-- Cog Tab -->
+  <section id="cogs" class="tab-content">
 
     <input type="text" id="search" placeholder="Search cog..." />
     <h1>What are Cogs ?</h1>
@@ -117,8 +638,8 @@
     </ul>
   </section>
 
-<!-- Levels Tab -->
-<section id="maps" class="tab-content">
+  <!-- Levels Tab -->
+  <section id="maps" class="tab-content">
     <h2>Level's Structure</h2>
     <p>Some weird complicated logics here</p>
   

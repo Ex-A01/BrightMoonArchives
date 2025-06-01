@@ -332,3 +332,48 @@ footer p {
   color: white;
   border-color: #1ae8a3;
 }
+
+/* File Structure Grid Styles */
+.file-structure {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.file-structure th,
+.file-structure td {
+  border: 1px solid #6f00ff;
+  padding: 10px;
+  text-align: left;
+}
+
+.file-structure th {
+  background-color: #5900ce;
+  color: rgb(182, 250, 255);
+  font-weight: bold;
+}
+
+.file-structure tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.file-structure tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Nested Fields */
+.nested-header {
+  background-color: #1200b6;
+  font-weight: bold;
+}
+
+.nested-field {
+  padding-left: 30px !important;
+  font-style: italic;
+}
+
+#progress-bar {
+  width: 100%;
+  height: 25px;
+}

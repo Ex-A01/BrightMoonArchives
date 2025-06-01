@@ -10,6 +10,17 @@ async function loadData() {
     }
   }
   
+async function loadProgress() {
+  try {
+    const response = await fetch("progress.txt?" + new Date().getTime()); // Contourne le cache
+    const text = await response.text();
+    const value = parseInt(text.trim(), 10);
+    if (!isNaN(value)) updateProgressBar(value);
+  } catch (error) {
+    console.error("Erreur lors du chargement de la progression :", error);
+  }
+}
+
   // Function to parse the text data into an array of objectsgx
   function parseTextData(text) {
     return text
@@ -111,6 +122,9 @@ async function loadData() {
   
     const tabLinks = document.querySelectorAll(".tab-link");
     tabLinks.forEach((link) => link.addEventListener("click", switchTab));
+
+    updateProgressBar(0);
+    loadProgress();
   });
 
   //cogs related stuff are below
@@ -170,6 +184,15 @@ async function loadData() {
     // Load and display the cogs
     const { known, missing } = await loadCogs();
     populateCogs(known, missing);
+
   });
 
-  
+  // Fonction pour mettre à jour la barre de progression
+function updateProgressBar(value) {
+  const progressBar = document.getElementById("progress-bar");
+  const progressPercent = document.getElementById("progress-percent");
+
+  const percentage = Math.min(Math.max(value, 0), 100); // Clamp entre 0 et 100
+  progressBar.value = percentage;
+  progressPercent.textContent = `${percentage}%`;
+}
